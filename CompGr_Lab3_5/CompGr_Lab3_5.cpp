@@ -37,7 +37,7 @@ void GLuby_array_destroyer(GLubyte** ary, GLubyte dim1) {
 
 void initializeGL()
 {
-    glClearColor(0,0,0,1);
+    glClearColor(0.5,0.5,0.5,1);
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
 }
@@ -46,7 +46,7 @@ void resizeGL(int sWidth, int sHeight)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     // borders
-    glOrtho(-6, 6, -6, 6, -8, 8);
+    glOrtho(-10, 10, -10, 10, -10, 10);
     glViewport(0, 0, (GLint)sWidth, (GLint)sHeight);
 }
 
@@ -186,18 +186,18 @@ void paintGL2D_Fig2()
     glLineWidth(4);
 
     GLfloat lambdaVertexArray[12][3] = {
-        {0, 0, 0},
-        {1, 1, 0},
-        {3.3, 1, 0},
-        {3.3, 0, 0},
-        {2, 0, 0},
-        {2, 1, 0},
-        {5, 1, 0},
-        {5, 0, 0},
-        {3.7, 0, 0},
-        {3.7, 1, 0},
-        {6, 1, 0},
-        {7, 0, 0}};
+        {-3.5, -0.5, 0},
+        {1 - 3.5, 1 - 0.5, 0},
+        {3.3 - 3.5, 1 - 0.5, 0},
+        {3.3 - 3.5, -0.5, 0},
+        {2 - 3.5, -0.5, 0},
+        {2 - 3.5, 1 - 0.5, 0},
+        {5 - 3.5, 1 - 0.5, 0},
+        {5 - 3.5, -0.5, 0},
+        {3.7 - 3.5, -0.5, 0},
+        {3.7 - 3.5, 1 - 0.5, 0},
+        {6 - 3.5, 1 - 0.5, 0},
+        {7 - 3.5, -0.5, 0}};
     GLfloat lambdaColorArray[12][3] = {
         {0, 0, 0},
         {0, 0, 0},
@@ -218,7 +218,6 @@ void paintGL2D_Fig2()
 
     glDrawElements(GL_LINE_STRIP, 12, GL_UNSIGNED_BYTE, lambdaIndexArray);
 }
-
 
 void paintGL3D_HL() {
     glEnable(GL_CULL_FACE);
@@ -434,39 +433,39 @@ void paintGL3D_HL() {
         {1, 0.85, 0},
         {1, 0.69, 0},
         //
-        {1, 0.6, 0.1},
-        {1., 0.41, 0.1},
-        {1., 0.25, 0.1},
-        {1., 0.14, 0.1},
-        {1., 0.1, 0.1},
-        {1., 0.14, 0.1},
-        {1., 0.25, 0.1},
-        {1., 0.41, 0.1},
-        {1, 0.6, 0.1},
-        {1, 0.79, 0.1},
-        {1, 0.95, 0.1},
-        {1, 1, 0.1},
-        {1, 1, 0.1},
-        {1, 1, 0.1},
-        {1, 0.95, 0.1},
-        {1, 0.79, 0.1},
+        {1, 0.6, 0.2},
+        {1., 0.41, 0.2},
+        {1., 0.25, 0.2},
+        {1., 0.14, 0.2},
+        {1., 0.1, 0.2},
+        {1., 0.14, 0.2},
+        {1., 0.25, 0.2},
+        {1., 0.41, 0.2},
+        {1, 0.6, 0.2},
+        {1, 0.79, 0.2},
+        {1, 0.95, 0.2},
+        {1, 1, 0.2},
+        {1, 1, 0.2},
+        {1, 1, 0.2},
+        {1, 0.95, 0.2},
+        {1, 0.79, 0.2},
         //
-        {1, 0.6, 0.1},
-        {1., 0.41, 0.1},
-        {1., 0.25, 0.1},
-        {1., 0.14, 0.1},
-        {1., 0.1, 0.1},
-        {1., 0.14, 0.1},
-        {1., 0.25, 0.1},
-        {1., 0.41, 0.1},
-        {1, 0.6, 0.1},
-        {1, 0.79, 0.1},
-        {1, 0.95, 0.1},
-        {1, 1, 0.1},
-        {1, 1, 0.1},
-        {1, 1, 0.1},
-        {1, 0.95, 0.1},
-        {1, 0.79, 0.1}
+        {1, 0.6, 0.2},
+        {1., 0.41, 0.2},
+        {1., 0.25, 0.2},
+        {1., 0.14, 0.2},
+        {1., 0.1, 0.2},
+        {1., 0.14, 0.2},
+        {1., 0.25, 0.2},
+        {1., 0.41, 0.2},
+        {1, 0.6, 0.2},
+        {1, 0.79, 0.2},
+        {1, 0.95, 0.2},
+        {1, 1, 0.2},
+        {1, 1, 0.2},
+        {1, 1, 0.2},
+        {1, 0.95, 0.2},
+        {1, 0.79, 0.2}
     };
     GLubyte ringIndexArray[64][4] = {
         {0, 16, 17, 1},
@@ -884,10 +883,11 @@ int main()
         sf::Style::Default,
         sf::ContextSettings(32));
     window.setVerticalSyncEnabled(true);
-
+    window.setFramerateLimit(30);
     initializeGL();
     resizeGL(sWidth, sHeight);
 
+    int fig = 1;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -895,16 +895,93 @@ int main()
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            if (event.type == sf::Event::KeyPressed) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+                    initializeGL();
+                    resizeGL(sWidth, sHeight);
+                    fig = 1;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+                    initializeGL();
+                    resizeGL(sWidth, sHeight);
+                    fig = 2;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+                    initializeGL();
+                    resizeGL(sWidth, sHeight);
+                    fig = 3;
+                }
+                if (fig < 3) {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                        glTranslatef(0,0.05,0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+                        glTranslatef(0, -0.05, 0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                        glTranslatef(-0.05, 0, 0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                        glTranslatef(0.05, 0, 0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+                        glScalef(1.01, 1.01, 1.01);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)) {
+                        glScalef(0.99, 0.99, 0.99);
+                    }
+                }
+                if (fig == 3) {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                        glScalef(1.01, 1.01, 1.01);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+                        glScalef(0.99, 0.99, 0.99);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                        glTranslatef(-0.05, 0, 0);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                        glTranslatef(0.05, 0, 0);
+                    }
+                }
+            }
             else if (event.type == sf::Event::Resized) {
                 glViewport(0, 0, event.size.width, event.size.height);
             }
+            if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt)) {
+                    if (event.mouseWheelScroll.delta > 0) {
+                        glRotatef(4, 1, 0, 0);
+                    }
+                    else {
+                        glRotatef(-4, 1, 0, 0);
+                    }
+                }
+                else {
+                    if (event.mouseWheelScroll.delta > 0) {
+                        glRotatef(4, 0, 1, 0);
+                    }
+                    else {
+                        glRotatef(-4, 0, 1, 0);
+                    }
+                }
+            }
         }
+
+
         glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_DEPTH_BUFFER_BIT);
         
-        paintGL3D_HL();
-        glRotatef(2, 0, 1, 0);
-        system("pause");
+        if (fig == 1) {
+            paintGL2D_Fig1();
+        }
+        else if (fig == 2) {
+            paintGL2D_Fig2();
+        }
+        else if (fig == 3) {
+            paintGL3D_HL();
+        }
 
         window.display();
     }
